@@ -10,8 +10,9 @@ import time
 import pyglet
 from pyglet.gl import *
 
+
 # Create the connection
-master = mavutil.mavlink_connection('udpin:0.0.0.0:14550')
+master = mavutil.mavlink_connection("/dev/ttyACM0", baud=115200)
 # Wait a heartbeat before sending commands
 master.wait_heartbeat()
 joysticks = pyglet.input.get_joysticks()
@@ -25,6 +26,16 @@ joystick.open()
 # Warning: Because of some legacy workaround, z will work between [0-1000]
 # where 0 is full reverse, 500 is no output and 1000 is full throttle.
 # x,y and r will be between [-1000 and 1000].
+
+master.mav.command_long_send(
+    master.target_system,
+    master.target_component,
+    mavutil.mavlink.MAV_CMD_COMPONENT_ARM_DISARM,
+    0,
+    1, 0, 0, 0, 0, 0, 0)
+
+
+
 master.mav.manual_control_send(
     master.target_system,
     500,
@@ -33,19 +44,23 @@ master.mav.manual_control_send(
     500,
     0)
 
+
 #first we see if engines will even turn on before trying to control them with controller
-time.sleep(3)
 
 #guide for man control: target, roll, pitch, yaw, thrust, roll_manual, pitch_manual, yaw_manual, thrust_manual
 #so its just an infinite loop sending different controls depending on left stick position. Should work. 
-while(true):
+while(True):
+    
+   # print(joystick.y)
+    if(joystick.buttons[3]):
+        print("button pressed")
     if(joystick.y >= 0.09):
         master.mav.manual_control_send(
             master.target_system,
             500,
             500,
-            500,
             500+(joystick.y*-500),
+            500,
             0)
         print(500+(joystick.y*-500))
     elif(joystick.y <= -0.09):
@@ -53,8 +68,8 @@ while(true):
             master.target_system,
             500,
             500,
-            500,
             500+(joystick.y*-500),
+            500,
             0)
         print(500+(joystick.y*-500))
     else:
@@ -62,9 +77,10 @@ while(true):
             master.target_system,
             500,
             -500,
-            250,
+            500,
             500,
             0)
+        
 
 
 # To active button 0 (first button), 3 (fourth button) and 7 (eighth button)
