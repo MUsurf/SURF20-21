@@ -15,3 +15,7 @@ For more information about our club, visit our [website](http://mizzousurf.com).
   - There should be a gyroscope and accelerometer onboard the pixhawk and we will definitely need to be able to access this data for autonomous operation.
   - There is a high chance that we may plug other sensors and devices into the pixhawk via the ADC ports or the I2C port. We should be able to read and communicate with these devices from a python script running on the Jetson.
 - [ ] Camera image recognition
+
+## Important Links
+- [Sending and recieving messages through pymavlink](https://mavlink.io/en/mavgen_python/)
+- [Message names and attributes](https://mavlink.io/en/messages/ardupilotmega.html)
