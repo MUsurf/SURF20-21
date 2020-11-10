@@ -19,3 +19,9 @@ For more information about our club, visit our [website](http://mizzousurf.com).
 ## Important Links
 - [Sending and recieving messages through pymavlink](https://mavlink.io/en/mavgen_python/)
 - [Message names and attributes](https://mavlink.io/en/messages/ardupilotmega.html)
+
+## Pixhawk Setup
+The Pixhawk is setup using QGroundControl.
+- Firmware: ChibiOS, Sub, Pixhawk1 - 4.0.2
+- Calibrate sensors as instructed on QGroundControl
+- In the frame tab, select "Vectored-6DOF"
