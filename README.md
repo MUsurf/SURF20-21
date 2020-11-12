@@ -15,10 +15,12 @@ For more information about our club, visit our [website](http://mizzousurf.com).
   - There should be a gyroscope and accelerometer onboard the pixhawk and we will definitely need to be able to access this data for autonomous operation.
   - There is a high chance that we may plug other sensors and devices into the pixhawk via the ADC ports or the I2C port. We should be able to read and communicate with these devices from a python script running on the Jetson.
 - [ ] Camera image recognition
+- [ ] Test Serial passthrough on the Pixhawk. If we can pass serial data through the pixhawk to the jetson then we can get rid of the giant usb hub on the sub.
 
 ## Important Links
 - [Sending and recieving messages through pymavlink](https://mavlink.io/en/mavgen_python/)
 - [Message names and attributes](https://mavlink.io/en/messages/ardupilotmega.html)
+- [Pixhawk using FFT](https://ardupilot.org/copter/docs/common-imu-fft.html)
 
 ## Pixhawk Setup
 The Pixhawk is setup using QGroundControl.
