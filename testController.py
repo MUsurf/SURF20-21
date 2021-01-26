@@ -3,42 +3,27 @@ from pyglet.gl import *
 from pymavlink import mavutil
 import time
 
-#Set up joystick
 joysticks = pyglet.input.get_joysticks()
 assert joysticks, 'No joystick device is connected'
 joystick = joysticks[0]
 joystick.open()
-master = mavutil.mavlink_connection("/dev/ttyACM0", baud=115200)
-master.wait_heartbeat()
+
 
 input_array = [1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500]
 
 window = pyglet.window.Window()
 main_batch = pyglet.graphics.Batch()
 
-master.mav.command_long_send(
-    master.target_system,
-    master.target_component,
-    mavutil.mavlink.MAV_CMD_COMPONENT_ARM_DISARM,
-    0,
-    1, 0, 0, 0, 0, 0, 0)
 
-def set_rc_channel_pwm(channel_id, pwm=1500):
-    rc_channel_values = [65535 for _ in range(8)]
-    rc_channel_values[channel_id - 1] = pwm
-    master.mav.rc_channels_override_send(
-        master.target_system,
-        master.target_component,
-        *rc_channel_values)
 
 
 
 @window.event
 def on_draw():
     #breakdown of channels:
-        #1: pitch = input_array[0]
-        #2: Roll = input_array[1]
-        #3: Throttle = input_array[2]
+        #1: pitch = input_array[0] ('forward flip or backward flip')
+        #2: Roll = input_array[1] ('cartweel to either side, or roll')
+        #3: Throttle = input_array[2] 
         #4: Yaw = input_array[3]
         #5: Forward = input_array[4]
         #6: Lateral = input_array[5]
@@ -50,16 +35,10 @@ def on_draw():
 #BUT, im not sure how this will work if we're sending multiple channels at the same time, like if we send pitch and yaw will it work? idk guess we'll see...
 
     get_input(input_array)
-    set_rc_channel_pwm(1, input_array[0])
-    set_rc_channel_pwm(2, input_array[1])
-    set_rc_channel_pwm(3, input_array[2])
-    set_rc_channel_pwm(4, input_array[3])
-    set_rc_channel_pwm(5, input_array[4])
-    set_rc_channel_pwm(6, input_array[5])
-    set_rc_channel_pwm(7, input_array[6])
-    set_rc_channel_pwm(8, input_array[7])
 
 
+    #print(input_array)
+    print(joystick.ry)
 def get_input(inputs):
         #up_down = 1500 + (joystick.hat_y*250)
 
@@ -83,6 +62,8 @@ def get_input(inputs):
     else:
         right_left = 1500
     inputs[5] = right_left
+    if(joystick.buttons[2]):
+        input_array = [1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500]
 
 def clamp(num, min_value, max_value):
    return max(min(num, max_value), min_value)

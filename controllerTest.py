@@ -35,6 +35,12 @@
 # ----------------------------------------------------------------------------
 
 '''
+SURF comment
+This code is meant to test what numbers will be returned when different joystick buttons are pressed
+Number Meanings for the black XBox controller:
+    joystick.y = vertical directions for the top left joystick (up = -1.0)(down = 1.0)
+    joystick.x = horizontal directions for the top left joystick (left = -1.0)(right = 1.0)
+    joystick.z = top left wing button (pushed down = 1.0)(all the way up = -1.0)
 '''
 
 
@@ -42,9 +48,9 @@
 import pyglet
 from pyglet.gl import *
 
-joysticks = pyglet.input.get_joysticks()
+joysticks = pyglet.input.get_joysticks() #returns an array representing all joysticks connected
 assert joysticks, 'No joystick device is connected'
-joystick = joysticks[0]
+joystick = joysticks[0] #if there is only one joystick, then it will be stored at index 0
 joystick.open()
 
 window = pyglet.window.Window()
@@ -56,8 +62,9 @@ main_batch = pyglet.graphics.Batch()
 @window.event
 def on_draw():
     print(joystick.y)
-
-    
+    print(joystick.x)
+    print(joystick.z)
+    print(joystick.rz) 
 
 
 pyglet.clock.schedule(lambda dt: None)
