@@ -13,12 +13,17 @@ from pyglet.gl import *
 
 # Create the connection
 master = mavutil.mavlink_connection("/dev/ttyACM0", baud=115200)
+print('connection made')
+
 # Wait a heartbeat before sending commands
 master.wait_heartbeat()
-joysticks = pyglet.input.get_joysticks()
+print('heartbeat received')
+
+#get joystick info and open
+'''joysticks = pyglet.input.get_joysticks()
 assert joysticks, 'no joystick connected'
 joystick = joysticks[0]
-joystick.open()
+joystick.open()'''
 
 # Send a positive x value, negative y, negative z,
 # positive rotation and no button.
@@ -33,25 +38,25 @@ master.mav.command_long_send(
     mavutil.mavlink.MAV_CMD_COMPONENT_ARM_DISARM,
     0,
     1, 0, 0, 0, 0, 0, 0)
-
+print('vehicle armed')
 
 
 master.mav.manual_control_send(
     master.target_system,
-    500,
-    -500,
-    250,
-    500,
+    1000,
+    0,
+    0,
+    0,
     0)
-
+input()
 
 #first we see if engines will even turn on before trying to control them with controller
 
 #guide for man control: target, roll, pitch, yaw, thrust, roll_manual, pitch_manual, yaw_manual, thrust_manual
 #so its just an infinite loop sending different controls depending on left stick position. Should work. 
-while(True):
+'''while(True):
     
-   # print(joystick.y)
+    print(joystick.y)
     if(joystick.buttons[3]):
         print("button pressed")
     if(joystick.y >= 0.09):
@@ -81,7 +86,7 @@ while(True):
             500,
             0)
         
-
+'''
 
 # To active button 0 (first button), 3 (fourth button) and 7 (eighth button)
 # It's possible to check and configure this buttons in the Joystick menu of QGC

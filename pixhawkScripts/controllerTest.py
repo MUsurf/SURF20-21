@@ -62,9 +62,9 @@ main_batch = pyglet.graphics.Batch()
 @window.event
 def on_draw():
     print(joystick.y)
-    print(joystick.x)
-    print(joystick.z)
-    print(joystick.rz) 
+    #print(joystick.x)
+    #print(joystick.z)
+    #print(joystick.rz) 
 
 
 pyglet.clock.schedule(lambda dt: None)
