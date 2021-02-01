@@ -2,20 +2,20 @@
 
 #include <Servo.h>
 
-Servo escs[6];
+Servo escs[8];
 
-int escPins[6] = {9,10,-1,-1,-1,-1};   //Set the pin numbers for motors. Set -1 if not connected
+int escPins[8] = {9,10,-1,-1,-1,-1,-1,-1};   //Set the pin numbers for motors. Set -1 if not connected
 int minPulseRate = 500;
 int maxPulseRate = 1500;
 int throttleChangeDelay = 100;
-int currentThrottle[6] = {90,90,90,90,90,90};
+int currentThrottle[8] = {90,90,90,90,90,90,90};
 
 void setup() {
   Serial.begin(9600);
   Serial.setTimeout(500);
 
   //Attach the motors to the correct pins
-  for(int i=0; i<6; i++)
+  for(int i=0; i<8; i++)
   {
     if(escPins[i] != -1) {
       escs[i].attach(escPins[i], minPulseRate, maxPulseRate);
@@ -23,7 +23,7 @@ void setup() {
       printStuff("Attached Motor ", i, " to pin ", escPins[i]);
     }
   }
-  Serial.println("Usage: {Motor Number 0-5},{Throttle Position 0-180}");
+  Serial.println("Usage: {Motor Number 0-7},{Throttle Position 0-180}");
 }
 
 void loop() {
