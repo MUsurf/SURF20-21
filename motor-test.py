@@ -25,6 +25,6 @@ kit.continuous_servo[1].throttle = 1
 print("servo set to 0")
 time.sleep(3)
 
-kit.continuous_servo[1].throttle = -1
+kit.continuous_servo[1].throttle = 0
 #print("Servo back at 90")
 
