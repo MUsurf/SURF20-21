@@ -1,4 +1,15 @@
 #Author: Jacob Voshage
+#Function to do list:
+#go forward
+#go backward
+#turn left
+#turn right
+#pitch up
+#pitch down
+#roll left
+#roll right
+#ascend
+#descend
 
 # Notable values: 
 #	240 -> max reverse throttle
@@ -7,6 +18,7 @@
 
 from __future__ import division
 import time
+
 
 # Import the PCA9685 module.
 import Adafruit_PCA9685
@@ -23,4 +35,29 @@ esc.set_pwm_freq(50)
 
 #Arm all motors
 esc.set_all_pwm(0,320)
+time.sleep(1)
+x = 0
+
+counterclockStart=327
+clockwiseStart=313
+
+'''
+while(x < 10):
+	esc.set_all_pwm(0, 320-x)
+	print(320-x)
+	x += 1
+	time.sleep(1)
+
+time.sleep(3)
+
+
+while(x > 0):
+	esc.set_all_pwm(0, 320-x)
+	print(320-x)
+	x -= 1
+	time.sleep(1)
+'''
+
+
+
 

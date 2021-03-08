@@ -18,6 +18,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
+
 from __future__ import division
 import logging
 import time
@@ -112,3 +113,4 @@ class PCA9685(object):
         self._device.write8(ALL_LED_ON_H, on >> 8)
         self._device.write8(ALL_LED_OFF_L, off & 0xFF)
         self._device.write8(ALL_LED_OFF_H, off >> 8)
+
