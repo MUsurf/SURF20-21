@@ -15,7 +15,6 @@
 #	240 -> max reverse throttle
 #   320 -> neutral throttle (off)
 #	410 -> max forward throttle
-
 from __future__ import division
 import time
 
@@ -33,13 +32,15 @@ esc.set_pwm_freq(50)
 # esc.set_pwm(motor,0,pulse)
 # esc.set_all_pwm(0,pulse)	
 
+
+
 #Arm all motors
 esc.set_all_pwm(0,320)
 time.sleep(1)
 x = 0
-
-counterclockStart=327
-clockwiseStart=313
+STOP = 320
+COUNTERCWSTART=327
+CWSTART=313
 
 '''
 while(x < 10):
@@ -57,6 +58,10 @@ while(x > 0):
 	x -= 1
 	time.sleep(1)
 '''
+
+esc.set_all_pwm(0, 345)
+time.sleep(10)
+esc.set_all_pwm(0, 320)
 
 
 
